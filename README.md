@@ -6,3 +6,6 @@ def say_something(*arg):
     a = arg * 2
     print('hello there! I can do math')
     return a """
+
+print("test")
+say_something(5)
