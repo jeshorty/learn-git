@@ -57,8 +57,8 @@ class CountdownTimer:
     
 class DigClock:
     def __init__(self, parent):
-        self.dig_clock = tk.Label(font=('calibri', 25, 'bold'), background='black', foreground='white')
-        self.dig_clock.pack(pady=20, padx=10)
+        self.dig_clock = tk.Label(parent, font=('calibri', 25, 'bold'), background='black', foreground='white')
+        self.dig_clock.pack(pady=10, padx=10)
         self.update_time()  
 
     def update_time(self):
