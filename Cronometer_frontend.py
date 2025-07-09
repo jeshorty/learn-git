@@ -2,25 +2,45 @@ import tkinter as tk
 from tkinter import messagebox
 from Cronometer_backend import CountdownTimer, DigClock
 
-class TimerFrame(tk.Frame):
-    def __init__(self, parent, controller):
-        super().__init__(parent)
-        self.controller = controller
+class Clock_timer(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Clock and Timer")
+        self.minsize(300, 150)
+
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+
+        self.clock_frame = tk.Frame(self, bg='black')
+        self.clock_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        self.clock = DigClock(self.clock_frame)
+
+        self.timer_frame = tk.Frame(self, bg='white')
+        self.timer_frame.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+
+        self.create_timer_ui()
+
+        self.bind("<Configure>", self.on_resize)
+
+    def create_timer_ui(self):
         self.timer = CountdownTimer()
 
-        self.entry = tk.Entry(self, width=10, font=("Arial", 24))
+        self.entry = tk.Entry(self.timer_frame, width=10, font=("Arial", 20))
         self.entry.insert(0, "00:00:01")
-        self.entry.grid(row=0, column=0, columnspan=4, pady=10)
+        self.entry.pack(pady=5)
 
-        self.display = tk.Label(self, text="Tempo rimanente: 00:00:00", font=("Arial", 24))
-        self.display.grid(row=1, column=0, columnspan=4, pady=10)
+        self.display = tk.Label(self.timer_frame, text="Remaining Time: 00:00:00", font=("Arial", 20))
+        self.display.pack(pady=5)
 
-        tk.Button(self, text="Start", width=10, command=self.start).grid(row=2, column=0)
-        tk.Button(self, text="Pausa", width=10, command=self.pause).grid(row=2, column=1)
-        tk.Button(self, text="Riprendi", width=10, command=self.resume_timer).grid(row=2, column=2)
-        tk.Button(self, text="Stop", width=10, command=self.stop).grid(row=3, column=0)
-        tk.Button(self, text="Ripristina", width=10, command=self.reset).grid(row=3, column=1)
-        tk.Button(self, text="← Menu", width=10, command=lambda: controller.show_frame("Menu")).grid(row=3, column=3)
+        self.button_frame = tk.Frame(self.timer_frame)
+        self.button_frame.pack(pady=5)
+
+        tk.Button(self.button_frame, text="Start", command=self.start).grid(row=0, column=0, padx=5)
+        tk.Button(self.button_frame, text="Pause", command=self.pause).grid(row=0, column=1, padx=5)
+        tk.Button(self.button_frame, text="Continues", command=self.resume).grid(row=0, column=2, padx=5)
+        tk.Button(self.button_frame, text="Stop", command=self.stop).grid(row=1, column=0, padx=5, pady=5)
+        tk.Button(self.button_frame, text="Reset", command=self.reset).grid(row=1, column=1, padx=5, pady=5)
+
 
     def parse_input_time(self):
         try:

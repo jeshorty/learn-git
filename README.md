@@ -1,11 +1,3 @@
-# Learning test for git & github
+# Learning git & github Clock-Timer project
 
-file creation, git workflow add, commit, remove, branches, push, fetch, clone. 
-"""python snippet
-def say_something(*arg):
-    a = arg * 2
-    print('hello there! I can do math')
-    return a """
-
-print("test")
-say_something(5)
+With this project, I'm trying to gain familiarity with Git and Python programming. The goal of this project is to create an app that displays the time, date, and local time zone, as well as providing a timer in a simple interface.
